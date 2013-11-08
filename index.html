@@ -1,0 +1,96 @@
+<html>
+
+<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+
+<script type="text/javascript">
+
+var imgs=["Test_AFD35-micro-m5-001.jpg",
+"Test_AFD35-micro-m5-002.jpg",
+"Test_AFD35-micro-m5-003.jpg",
+"Test_AFD35-micro-m5-004.jpg",
+"Test_AFD35-micro-m5-005.jpg",
+"Test_AFD35-micro-m5-006.jpg",
+"Test_AFD35-micro-m5-007.jpg",
+"Test_AFD35-micro-m5-008.jpg",
+"Test_AFD35-micro-m5-009.jpg",
+"Test_AFD35-micro-m5-010.jpg",
+"Test_AFD35-micro-m5-011.jpg",
+"Test_AFD35-micro-m5-012.jpg",
+"Test_AFD35-micro-m5-013.jpg",
+"Test_AFD35-micro-m5-014.jpg",
+"Test_AFD35-micro-m5-015.jpg",
+"Test_AFD35-micro-m5-016.jpg",
+"Test_AFD35-micro-m5-017.jpg",
+"Test_AFD35-micro-m5-018.jpg",
+"Test_AFD35-micro-m5-019.jpg",
+"Test_AFD35-micro-m5-020.jpg",
+"Test_AFD35-micro-m5-021.jpg",
+"Test_AFD35-micro-m5-022.jpg",
+"Test_AFD35-micro-m5-023.jpg",
+"Test_AFD35-micro-m5-024.jpg",
+"Test_AFD35-micro-m5-025.jpg",
+"Test_AFD35-micro-m5-026.jpg",
+"Test_AFD35-micro-m5-027.jpg",
+"Test_AFD35-micro-m5-028.jpg",
+"Test_AFD35-micro-m5-029.jpg",
+"Test_AFD35-micro-m5-030.jpg",
+"Test_AFD35-micro-m5-031.jpg",
+"Test_AFD35-micro-m5-032.jpg"];
+
+var votes= [];
+var nvotes=[];
+var currentImg;
+
+for(var i = 0 ; i < imgs.length ; i++){
+	votes.push(0);
+	nvotes.push(0);
+}
+
+
+function randomize(){
+	rnd = Math.floor(Math.random()*imgs.length);
+	jQuery("#toDisplay").attr("src", imgs[rnd]);
+	currentImg = rnd;
+
+	// also construct result
+	var results = "<table><tr><th>img</th><th>note</th><th>nbvotes</th></tr>"
+	for(var i = 0 ; i < imgs.length ; i++){
+		results+="<tr>"
+		results+="<td>"+imgs[i].substring(21,23)+"</td>"
+		results+="<td>"+votes[i]+"</td>"
+		results+="<td>"+nvotes[i]+"</td>"
+		results+="</tr>"
+	}
+	results+="</table>"
+	jQuery("#results").html(results)
+}
+
+jQuery(document).ready(function(){
+	jQuery("body").keyup(function(e){
+		var number = e.keyCode - 96;
+		if(number < 0 || number > 9){
+			return;
+		}
+		votes[currentImg]+=number
+		nvotes[currentImg]+=1;
+		randomize();
+		console.log(votes);
+		console.log(nvotes);
+	});
+
+	randomize();
+});
+
+
+</script>
+
+<body>
+<h1>Put a note between 0 and 9 with your keyboard</h1>
+<img id="toDisplay"/>
+<div id="results"></div>
+</results>
+
+
+</body>
+
+</html>
